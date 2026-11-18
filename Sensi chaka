@@ -1,0 +1,76 @@
+
+-- SENSI CHACA VIP
+-- MENU FLOTANTE PARA DELTA
+
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+
+local gui = Instance.new("ScreenGui")
+gui.Name = "SENSI_CHACA_VIP"
+gui.ResetOnSpawn = false
+gui.Parent = player:WaitForChild("PlayerGui")
+
+-- CUADRO FLOTANTE
+local float = Instance.new("TextButton")
+float.Size = UDim2.new(0, 115, 0, 42)
+float.Position = UDim2.new(0.5, -57, 0, 35)
+float.BackgroundColor3 = Color3.fromRGB(0,0,0)
+float.Text = "CHACA VIP"
+float.TextColor3 = Color3.fromRGB(255,0,0)
+float.TextSize = 17
+float.Parent = gui
+
+Instance.new("UICorner", float).CornerRadius =
+    UDim.new(0, 15)
+
+-- MENU PRINCIPAL
+local menu = Instance.new("Frame")
+menu.Size = UDim2.new(0, 270, 0, 220)
+menu.Position = UDim2.new(0.5, -135, 0.5, -110)
+menu.BackgroundColor3 = Color3.fromRGB(12,12,12)
+menu.Visible = false
+menu.Parent = gui
+
+Instance.new("UICorner", menu).CornerRadius =
+    UDim.new(0, 18)
+
+local title = Instance.new("TextLabel")
+title.Size = UDim2.new(1,0,0,45)
+title.BackgroundTransparency = 1
+title.Text = "SENSI CHACA VIP"
+title.TextColor3 = Color3.fromRGB(255,0,0)
+title.TextSize = 22
+title.Parent = menu
+
+local function crearBoton(nombre, posicion)
+    local b = Instance.new("TextButton")
+    b.Size = UDim2.new(0.85,0,0,42)
+    b.Position = UDim2.new(0.075,0,0,posicion)
+    b.BackgroundColor3 = Color3.fromRGB(35,35,35)
+    b.TextColor3 = Color3.new(1,1,1)
+    b.Text = nombre .. " : OFF"
+    b.TextSize = 16
+    b.Parent = menu
+
+    Instance.new("UICorner", b).CornerRadius =
+        UDim.new(0,12)
+
+    local activo = false
+
+    b.MouseButton1Click:Connect(function()
+        activo = not activo
+        b.Text = nombre .. (activo and " : ON" or " : OFF")
+        b.BackgroundColor3 = activo
+            and Color3.fromRGB(120,0,0)
+            or Color3.fromRGB(35,35,35)
+    end)
+end
+
+crearBoton("AIMBOT CABEZA", 60)
+crearBoton("ESP ENEMIGOS", 110)
+crearBoton("SENSI HEADSHOT", 160)
+
+-- ABRIR Y CERRAR
+float.MouseButton1Click:Connect(function()
+    menu.Visible = not menu.Visible
+end)
